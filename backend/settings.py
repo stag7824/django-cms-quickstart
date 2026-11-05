@@ -20,6 +20,13 @@ if DEBUG:
 # Redirect to HTTPS by default, unless explicitly disabled
 SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT') != "False"
 
+# Coolify's proxy (Caddy) handles HTTPS and forwards plain HTTP to the container.
+# Trust its X-Forwarded-Proto header so Django knows the original request was HTTPS.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = [f"https://{os.environ['DOMAIN']}"] if os.environ.get('DOMAIN') else []
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
@@ -137,6 +144,9 @@ THUMBNAIL_PROCESSORS = (
 )
 
 CMS_TEMPLATES = [
+    # Your brand's page template; the first entry is the default for new pages
+    ('voxelry.html', 'Voxelry page'),
+
     # Default template that extend base.html, to be used with Bootstrap 5
     ('bootstrap5.html', 'Bootstrap 5 Demo'),
 

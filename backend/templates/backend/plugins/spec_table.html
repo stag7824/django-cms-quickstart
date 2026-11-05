@@ -1,0 +1,9 @@
+{% load cms_tags %}
+<div class="my-4">
+    <h3 class="h5">{{ instance.title }}</h3>
+    <table class="table table-sm">
+        <tbody>
+            {% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% endfor %}
+        </tbody>
+    </table>
+</div>

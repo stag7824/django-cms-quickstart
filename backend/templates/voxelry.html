@@ -1,0 +1,16 @@
+{% extends "bootstrap5.html" %}{% load cms_tags djangocms_alias_tags %}
+{% block brand %}Voxelry{% endblock %}
+{% block content %}
+    <header class="bg-light border-bottom py-5">
+        <div class="container">{% placeholder "Hero" %}</div>
+    </header>
+    <main class="container py-5">
+        {% placeholder "Content" %}
+    </main>
+    <section class="bg-dark text-white py-5">
+        <div class="container">{% placeholder "Call to action" %}</div>
+    </section>
+    <footer class="container py-4 small text-muted">
+        {% static_alias "footer" %}
+    </footer>
+{% endblock content %}

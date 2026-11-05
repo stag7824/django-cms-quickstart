@@ -1,0 +1,30 @@
+# Production compose file for Coolify. Local development keeps using compose.yaml.
+services:
+  web:
+    build: .
+    # Apply any new migrations, then start the app server on port 80
+    command: sh -c "python manage.py migrate --noinput && uwsgi --http=0.0.0.0:80 --module=backend.wsgi --master --processes=2 --threads=4"
+    environment:
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:?}@database_default:5432/db
+      DEFAULT_STORAGE_DSN: file:///data/media/?url=%2Fmedia%2F
+      SECRET_KEY: ${SECRET_KEY:?}
+      DEBUG: "False"
+      DOMAIN: formlabs.gardazi.com
+    volumes:
+      - /home/ubuntu/config/formlabs-media:/data
+    depends_on:
+      database_default:
+        condition: service_healthy
+
+  database_default:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+    volumes:
+      - /home/ubuntu/config/formlabs-db:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
