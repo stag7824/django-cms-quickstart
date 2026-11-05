@@ -87,10 +87,19 @@ class Command(BaseCommand):
             default="voxelry-seed",
             help="Author recorded on the created page versions.",
         )
+        parser.add_argument(
+            "--skip-existing",
+            action="store_true",
+            help="Exit quietly instead of failing when the site already exists, for use on every deploy.",
+        )
 
     def handle(self, *args, **options):
         if Page.objects.filter(reverse_id="home").exists():
-            raise CommandError("The Voxelry starter site already exists, so nothing was changed.")
+            message = "The Voxelry starter site already exists, so nothing was changed."
+            if options["skip_existing"]:
+                self.stdout.write(message)
+                return
+            raise CommandError(message)
 
         user, _created = get_user_model().objects.get_or_create(username=options["username"])
         with transaction.atomic():

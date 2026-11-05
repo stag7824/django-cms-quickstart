@@ -2,8 +2,8 @@
 services:
   web:
     build: .
-    # Apply any new migrations, then start the app server on port 80
-    command: sh -c "python manage.py migrate --noinput && uwsgi --http=0.0.0.0:80 --module=backend.wsgi --master --processes=2 --threads=4"
+    # Apply any new migrations, add the starter content on the first deploy, then start the app server on port 80
+    command: sh -c "python manage.py migrate --noinput && python manage.py seed_voxelry --skip-existing && uwsgi --http=0.0.0.0:80 --module=backend.wsgi --master --processes=2 --threads=4"
     environment:
       DATABASE_URL: postgres://postgres:${SERVICE_PASSWORD_POSTGRES}@database_default:5432/db
       DEFAULT_STORAGE_DSN: file:///data/media/?url=%2Fmedia%2F
