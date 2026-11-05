@@ -1,0 +1,2 @@
+{% load cms_tags %}
+<div class="col-6 col-md-3"><h2 class="vx-footer-title">{{ instance.title }}</h2><ul class="list-unstyled">{% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% endfor %}</ul></div>

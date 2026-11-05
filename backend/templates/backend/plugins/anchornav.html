@@ -1,0 +1,4 @@
+{% load cms_tags i18n %}
+<nav class="vx-anchor-nav" aria-label="{% trans "On this page" %}">
+    <div class="container-xl"><div class="vx-anchor-items">{% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% endfor %}</div></div>
+</nav>

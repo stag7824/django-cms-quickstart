@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
 
     # key django CMS modules
     'cms',
@@ -146,6 +147,11 @@ THUMBNAIL_PROCESSORS = (
 CMS_TEMPLATES = [
     # Your brand's page template; the first entry is the default for new pages
     ('voxelry.html', 'Voxelry page'),
+    ('voxelry/home.html', 'Voxelry home'),
+    ('voxelry/product.html', 'Voxelry product'),
+    ('voxelry/landing.html', 'Voxelry industry or application'),
+    ('voxelry/listing.html', 'Voxelry hub or listing'),
+    ('voxelry/article.html', 'Voxelry article'),
 
     # Default template that extend base.html, to be used with Bootstrap 5
     ('bootstrap5.html', 'Bootstrap 5 Demo'),
@@ -188,6 +194,8 @@ if not DEBUG:
     ]
 
 
+SITE_ID = 1
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -195,7 +203,20 @@ LANGUAGE_CODE = 'en'
 
 LANGUAGES = [
     ('en', 'English'),
+    ('de', 'Deutsch'),
 ]
+
+CMS_LANGUAGES = {
+    SITE_ID: [
+        {'code': 'en', 'name': 'English'},
+        {'code': 'de', 'name': 'Deutsch', 'fallbacks': ['en']},
+    ],
+    'default': {
+        'public': True,
+        'hide_untranslated': False,
+        'redirect_on_fallback': True,
+    },
+}
 
 TIME_ZONE = 'UTC'
 
@@ -233,12 +254,21 @@ STORAGES = {
 
 # only required for local file storage and serving, in development
 MEDIA_URL = 'media/'
-MEDIA_ROOT = '/data/media/'
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', '/data/media/')
 
-
-SITE_ID = 1
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 CMS_CONFIRM_VERSION4 = True
 DJANGOCMS_VERSIONING_ALLOW_DELETING_VERSIONS = True
+
+# Keep each page area to the blocks it was designed for.
+VOXELRY_SECTION_PLUGINS = ['SectionPlugin', 'AnchorNavPlugin', 'CTABannerPlugin', 'Alias']
+CMS_PLACEHOLDER_CONF = {
+    'Hero': {'name': 'Hero', 'plugins': ['HeroPlugin'], 'limits': {'global': 1}},
+    'Highlights': {'name': 'Jump links', 'plugins': ['AnchorNavPlugin'], 'limits': {'global': 1}},
+    'Sections': {'name': 'Sections', 'plugins': VOXELRY_SECTION_PLUGINS},
+    'Regional': {'name': 'Regional content', 'plugins': VOXELRY_SECTION_PLUGINS},
+    'Related': {'name': 'Related content', 'plugins': VOXELRY_SECTION_PLUGINS},
+    'Call to action': {'name': 'Call to action', 'plugins': ['CTABannerPlugin', 'Alias'], 'limits': {'global': 1}},
+}

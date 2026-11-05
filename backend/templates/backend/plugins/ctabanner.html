@@ -1,0 +1,11 @@
+{% load voxelry_tags %}
+<section class="vx-cta">
+    <div class="container-xl">
+        <h2>{{ instance.heading }}</h2>
+        {% if instance.text %}<p>{{ instance.text }}</p>{% endif %}
+        <div class="vx-actions">
+            {% if instance.primary_label %}<a class="btn vx-btn-light" href="{{ instance.primary_link|link_url }}">{{ instance.primary_label }}</a>{% endif %}
+            {% if instance.secondary_label %}<a class="btn vx-btn-outline" href="{{ instance.secondary_link|link_url }}">{{ instance.secondary_label }}</a>{% endif %}
+        </div>
+    </div>
+</section>

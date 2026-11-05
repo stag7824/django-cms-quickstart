@@ -1,0 +1,16 @@
+{% load cms_tags voxelry_tags %}
+<section class="vx-section vx-tone-{{ instance.tone }}"{% if instance.anchor %} id="{{ instance.anchor }}"{% endif %}>
+    <div class="container-xl">
+        {% if instance.heading %}
+            <header class="vx-section-header">
+                <div>
+                    {% if instance.eyebrow %}<p class="vx-eyebrow">{{ instance.eyebrow }}</p>{% endif %}
+                    <h2>{{ instance.heading }}</h2>
+                    {% if instance.intro %}<p class="vx-section-intro">{{ instance.intro }}</p>{% endif %}
+                </div>
+                {% if instance.cta_label %}<a class="vx-arrow-link" href="{{ instance.cta_link|link_url }}">{{ instance.cta_label }} &rarr;</a>{% endif %}
+            </header>
+        {% endif %}
+        {% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% endfor %}
+    </div>
+</section>

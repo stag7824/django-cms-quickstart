@@ -1,0 +1,29 @@
+{% extends "voxelry/shell.html" %}{% load cms_tags i18n thumbnail voxelry_tags %}
+{% block meta %}
+    {{ block.super }}
+    {% resource_meta as meta %}
+    {% if meta.listing_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ meta.listing_image.url }}"/>{% endif %}
+{% endblock meta %}
+{% block main %}
+    {% resource_meta as meta %}
+    {% page_attribute "title" as headline %}{% page_attribute "meta_description" as description %}
+    <article>
+        <header class="vx-article-header">
+            <div class="container-xl vx-narrow">
+                {% if meta %}<p class="vx-eyebrow">{{ meta.get_resource_type_display }} &middot; <time datetime="{{ meta.published_on|date:"Y-m-d" }}">{{ meta.published_on|date:"DATE_FORMAT" }}</time></p>{% endif %}
+                <h1>{{ headline }}</h1>
+                {% if description %}<p class="vx-lede">{{ description }}</p>{% endif %}
+            </div>
+            {% if meta.listing_image %}
+                <div class="container-xl vx-article-image">
+                    {% thumbnail meta.listing_image "1200x600" crop as thumb %}
+                    <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="" role="presentation"/>
+                </div>
+            {% endif %}
+        </header>
+        <div class="container-xl vx-narrow vx-prose">{% placeholder "Body" %}</div>
+    </article>
+    {% placeholder "Related" %}
+    {% placeholder "Call to action" %}
+    <script type="application/ld+json">{% article_structured_data meta headline description %}</script>
+{% endblock main %}

@@ -1,0 +1,4 @@
+{% load cms_tags %}
+<div class="row g-4 vx-grid row-cols-1 row-cols-md-2 {% if instance.columns == 3 %}row-cols-lg-3{% elif instance.columns == 4 %}row-cols-lg-4{% endif %}">
+    {% for plugin in instance.child_plugin_instances %}<div class="col">{% render_plugin plugin %}</div>{% endfor %}
+</div>

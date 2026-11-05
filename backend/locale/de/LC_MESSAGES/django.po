@@ -1,0 +1,109 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: de\n"
+
+msgid "Skip to main content"
+msgstr "Zum Hauptinhalt springen"
+
+msgid "Main"
+msgstr "Hauptnavigation"
+
+msgid "Toggle navigation"
+msgstr "Navigation ein-/ausblenden"
+
+msgid "Contact sales"
+msgstr "Vertrieb kontaktieren"
+
+msgid "View all"
+msgstr "Alle ansehen"
+
+msgid "Voxelry, its products and its customers are fictional. This is a CMS practice project and is not affiliated with any 3D printing company."
+msgstr "Voxelry, seine Produkte und Kunden sind fiktiv. Dies ist ein CMS-Übungsprojekt ohne Verbindung zu einem 3D-Druck-Unternehmen."
+
+msgid "On this page"
+msgstr "Auf dieser Seite"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "All types"
+msgstr "Alle Typen"
+
+msgid "Industry"
+msgstr "Branche"
+
+msgid "All industries"
+msgstr "Alle Branchen"
+
+msgid "Apply"
+msgstr "Anwenden"
+
+msgid "Nothing matches these filters yet."
+msgstr "Zu diesen Filtern gibt es noch keine Inhalte."
+
+msgid "Print technology"
+msgstr "Drucktechnologie"
+
+msgid "All technologies"
+msgstr "Alle Technologien"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "All categories"
+msgstr "Alle Kategorien"
+
+msgid "Material"
+msgstr "Material"
+
+msgid "Technology"
+msgstr "Technologie"
+
+msgid "Tensile strength"
+msgstr "Zugfestigkeit"
+
+msgid "Elongation at break"
+msgstr "Bruchdehnung"
+
+msgid "Price"
+msgstr "Preis"
+
+msgid "News"
+msgstr "Neuigkeiten"
+
+msgid "Case study"
+msgstr "Fallstudie"
+
+msgid "Guide"
+msgstr "Leitfaden"
+
+msgid "White paper"
+msgstr "Whitepaper"
+
+msgid "Automotive"
+msgstr "Automobilindustrie"
+
+msgid "Manufacturing"
+msgstr "Fertigung"
+
+msgid "Medical"
+msgstr "Medizin"
+
+msgid "General purpose"
+msgstr "Allzweck"
+
+msgid "Impact resistant"
+msgstr "Schlagfest"
+
+msgid "High stiffness"
+msgstr "Hohe Steifigkeit"
+
+msgid "Temperature resistant"
+msgstr "Temperaturbeständig"
+
+msgid "Elastomeric"
+msgstr "Elastomer"
+
+msgid "Resource settings"
+msgstr "Ressourcen-Einstellungen"

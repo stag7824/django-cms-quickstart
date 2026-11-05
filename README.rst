@@ -8,6 +8,10 @@ django CMS quickstart
 - This version uses Python 3.11 and the most up-to-date versions of Django 4.2, and django CMS 4.1.0
 - This project is endorsed by the `django CMS Association <https://www.django-cms.org/en/about-us/>`_. That means that it is officially accepted by the dCA as being in line with our roadmap vision and development/plugin policy. Join us on `Slack <https://www.django-cms.org/slack/>`_ for more information or questions.
 - The documentation for  django CMS can be found here: https://docs.django-cms.org/
+- This fork adds **Voxelry**, a fictional 3D printing brand built in English and German. It
+  includes page templates, reusable content blocks, a material catalogue, a resource hub and a
+  content QA command. Run ``python manage.py seed_voxelry`` after migrating, then read
+  ``docs/EDITOR_GUIDE.md``.
 
 Installation
 ############

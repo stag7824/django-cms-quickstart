@@ -1,0 +1,37 @@
+{% load i18n %}
+{% if instance.show_filters %}
+    <form class="vx-filters" method="get">
+        <label>{% trans "Print technology" %}
+            <select class="form-select" name="print-technology" onchange="this.form.submit()">
+                <option value="">{% trans "All technologies" %}</option>
+                {% for value, label in technologies %}<option value="{{ value }}"{% if value == selected_technology %} selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>{% trans "Category" %}
+            <select class="form-select" name="categories" onchange="this.form.submit()">
+                <option value="">{% trans "All categories" %}</option>
+                {% for value, label in categories %}<option value="{{ value }}"{% if value == selected_category %} selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </label>
+        <noscript><button class="btn vx-btn-secondary" type="submit">{% trans "Apply" %}</button></noscript>
+    </form>
+{% endif %}
+<div class="table-responsive vx-table">
+    <table class="table align-middle">
+        <thead><tr><th scope="col">{% trans "Material" %}</th><th scope="col">{% trans "Technology" %}</th><th scope="col">{% trans "Category" %}</th><th scope="col">{% trans "Tensile strength" %}</th><th scope="col">{% trans "Elongation at break" %}</th><th scope="col">{% trans "Price" %}</th></tr></thead>
+        <tbody>
+            {% for material in materials %}
+                <tr>
+                    <th scope="row">{{ material.name }}{% if material.description %}<span class="vx-table-note">{{ material.description }}</span>{% endif %}</th>
+                    <td>{{ material.get_technology_display }}</td>
+                    <td>{{ material.get_category_display }}</td>
+                    <td>{{ material.tensile_strength_mpa }} MPa</td>
+                    <td>{{ material.elongation_percent }}%</td>
+                    <td>{% if LANGUAGE_CODE == "de" %}{{ material.price_eur }} €{% else %}€{{ material.price_eur }}{% endif %}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6">{% trans "Nothing matches these filters yet." %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

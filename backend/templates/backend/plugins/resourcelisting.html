@@ -1,0 +1,35 @@
+{% load i18n %}
+{% if instance.show_filters %}
+    <form class="vx-filters" method="get">
+        <label>{% trans "Type" %}
+            <select class="form-select" name="type" onchange="this.form.submit()">
+                <option value="">{% trans "All types" %}</option>
+                {% for value, label in types %}<option value="{{ value }}"{% if value == selected_type %} selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>{% trans "Industry" %}
+            <select class="form-select" name="industry" onchange="this.form.submit()">
+                <option value="">{% trans "All industries" %}</option>
+                {% for value, label in industries %}<option value="{{ value }}"{% if value == selected_industry %} selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </label>
+        <noscript><button class="btn vx-btn-secondary" type="submit">{% trans "Apply" %}</button></noscript>
+    </form>
+{% endif %}
+<div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
+    {% for item in items %}
+        <div class="col">
+            <div class="vx-card has-link">
+                {% if item.meta.listing_image %}<div class="vx-card-image">{% include "backend/plugins/_image.html" with image=item.meta.listing_image alt="" decorative=True size="640x400" %}</div>{% endif %}
+                <div class="vx-card-body">
+                    <span class="vx-badge">{{ item.meta.get_resource_type_display }}</span>
+                    <h3><a class="stretched-link" href="{{ item.url }}">{{ item.title }}</a></h3>
+                    {% if item.teaser %}<p>{{ item.teaser }}</p>{% endif %}
+                    <time datetime="{{ item.meta.published_on|date:"Y-m-d" }}">{{ item.meta.published_on|date:"DATE_FORMAT" }}</time>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12"><p>{% trans "Nothing matches these filters yet." %}</p></div>
+    {% endfor %}
+</div>

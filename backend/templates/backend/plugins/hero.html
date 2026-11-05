@@ -1,0 +1,19 @@
+{% load voxelry_tags %}
+<section class="vx-hero vx-hero-{{ instance.layout }}">
+    {% if instance.layout == "overlay" %}<div class="vx-hero-media">{% include "backend/plugins/_image.html" with image=instance.image alt=instance.image_alt size="1920x900" eager=True %}</div>{% endif %}
+    <div class="container-xl">
+        <div class="row align-items-center g-4 g-lg-5">
+            <div class="{% if instance.layout == "split" %}col-lg-6{% else %}col-lg-8{% endif %} vx-hero-text">
+                {% if instance.eyebrow %}<p class="vx-eyebrow">{{ instance.eyebrow }}</p>{% endif %}
+                <h1>{{ instance.heading }}</h1>
+                {% if instance.subheading %}<p class="vx-lede">{{ instance.subheading }}</p>{% endif %}
+                {% if instance.price_note %}<p class="vx-price">{{ instance.price_note }}</p>{% endif %}
+                <div class="vx-actions">
+                    {% if instance.primary_label %}<a class="btn vx-btn-primary" href="{{ instance.primary_link|link_url }}">{{ instance.primary_label }}</a>{% endif %}
+                    {% if instance.secondary_label %}<a class="btn vx-btn-secondary" href="{{ instance.secondary_link|link_url }}">{{ instance.secondary_label }}</a>{% endif %}
+                </div>
+            </div>
+            {% if instance.layout == "split" %}<div class="col-lg-6 vx-hero-image">{% include "backend/plugins/_image.html" with image=instance.image alt=instance.image_alt size="960x720" eager=True %}</div>{% endif %}
+        </div>
+    </div>
+</section>

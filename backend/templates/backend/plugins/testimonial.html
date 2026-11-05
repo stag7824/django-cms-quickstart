@@ -1,0 +1,8 @@
+{% load voxelry_tags %}
+<figure class="vx-quote">
+    {% if instance.tag %}<span class="vx-badge">{{ instance.tag }}</span>{% endif %}
+    <h3>{{ instance.company }}</h3>
+    <blockquote>{{ instance.quote }}</blockquote>
+    <figcaption><strong>{{ instance.person }}</strong>{% if instance.role %}<br/>{{ instance.role }}{% endif %}</figcaption>
+    {% if instance.link_label %}<a class="vx-arrow-link" href="{{ instance.link|link_url }}">{{ instance.link_label }} &rarr;</a>{% endif %}
+</figure>

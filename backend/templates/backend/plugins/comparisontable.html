@@ -1,0 +1,8 @@
+{% load cms_tags %}
+<div class="table-responsive vx-table">
+    <table class="table">
+        <thead><tr><td></td><th scope="col">{{ instance.column_one }}</th><th scope="col">{{ instance.column_two }}</th>{% if instance.column_three %}<th scope="col">{{ instance.column_three }}</th>{% endif %}</tr></thead>
+        <tbody>{% for plugin in instance.child_plugin_instances %}{% render_plugin plugin %}{% endfor %}</tbody>
+    </table>
+    {% if instance.footnote %}<p class="vx-footnote">{{ instance.footnote }}</p>{% endif %}
+</div>

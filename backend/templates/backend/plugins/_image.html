@@ -1,0 +1,1 @@
+{% load thumbnail %}{% if image %}{% thumbnail image size crop as thumb %}<img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{{ alt }}"{% if decorative %} role="presentation"{% endif %}{% if not eager %} loading="lazy"{% endif %}/>{% else %}<div class="vx-image-empty" aria-hidden="true"></div>{% endif %}

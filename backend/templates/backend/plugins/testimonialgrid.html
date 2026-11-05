@@ -1,0 +1,2 @@
+{% load cms_tags %}
+<div class="row g-4 row-cols-1 {% if instance.child_plugin_instances|length > 1 %}row-cols-lg-3{% else %}row-cols-lg-2{% endif %}">{% for plugin in instance.child_plugin_instances %}<div class="col">{% render_plugin plugin %}</div>{% endfor %}</div>

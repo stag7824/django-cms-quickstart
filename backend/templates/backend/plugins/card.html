@@ -1,0 +1,10 @@
+{% load voxelry_tags %}
+<div class="vx-card{% if instance.link %} has-link{% endif %}">
+    {% if instance.image %}<div class="vx-card-image">{% include "backend/plugins/_image.html" with image=instance.image alt=instance.image_alt size="640x480" %}</div>{% endif %}
+    <div class="vx-card-body">
+        {% if instance.badge %}<span class="vx-badge">{{ instance.badge }}</span>{% endif %}
+        <h3>{{ instance.title }}</h3>
+        {% if instance.text %}<p>{{ instance.text }}</p>{% endif %}
+        {% if instance.link %}<a class="vx-arrow-link stretched-link" href="{{ instance.link|link_url }}">{{ instance.link_label|default:instance.title }} &rarr;</a>{% endif %}
+    </div>
+</div>

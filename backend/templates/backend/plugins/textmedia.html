@@ -1,0 +1,10 @@
+{% load voxelry_tags %}
+<div class="row align-items-center g-4 g-lg-5 vx-text-media">
+    <div class="col-lg-6{% if instance.image_first %} order-lg-2{% endif %}">
+        {% if instance.eyebrow %}<p class="vx-eyebrow">{{ instance.eyebrow }}</p>{% endif %}
+        <h3>{{ instance.heading }}</h3>
+        <div class="vx-prose">{{ instance.body|safe }}</div>
+        {% if instance.cta_label %}<a class="vx-arrow-link" href="{{ instance.cta_link|link_url }}">{{ instance.cta_label }} &rarr;</a>{% endif %}
+    </div>
+    <div class="col-lg-6{% if instance.image_first %} order-lg-1{% endif %}">{% include "backend/plugins/_image.html" with image=instance.image alt=instance.image_alt size="960x640" %}</div>
+</div>

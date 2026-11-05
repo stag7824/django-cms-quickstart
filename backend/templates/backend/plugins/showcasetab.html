@@ -1,0 +1,9 @@
+{% load voxelry_tags %}
+<div class="row align-items-center g-4 g-lg-5">
+    <div class="col-lg-7">{% include "backend/plugins/_image.html" with image=instance.image alt=instance.image_alt size="960x600" %}</div>
+    <div class="col-lg-5">
+        <h3>{{ instance.heading }}</h3>
+        {% if instance.text %}<p>{{ instance.text }}</p>{% endif %}
+        {% if instance.link %}<a class="vx-arrow-link" href="{{ instance.link|link_url }}">{{ instance.link_label|default:instance.heading }} &rarr;</a>{% endif %}
+    </div>
+</div>

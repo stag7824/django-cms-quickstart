@@ -1,0 +1,13 @@
+{% load cms_tags voxelry_tags %}
+<div class="vx-tabs">
+    <ul class="nav nav-pills vx-tab-list" role="tablist">
+        {% for tab in instance.child_plugin_instances %}
+            <li class="nav-item" role="presentation"><button class="nav-link{% if forloop.first %} active{% endif %}" id="tab-{{ tab.pk }}" data-bs-toggle="pill" data-bs-target="#panel-{{ tab.pk }}" type="button" role="tab" aria-controls="panel-{{ tab.pk }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ tab.label }}</button></li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content">
+        {% for tab in instance.child_plugin_instances %}
+            <div class="tab-pane fade{% if forloop.first %} show active{% endif %}" id="panel-{{ tab.pk }}" role="tabpanel" aria-labelledby="tab-{{ tab.pk }}" tabindex="0">{% render_plugin tab %}</div>
+        {% endfor %}
+    </div>
+</div>

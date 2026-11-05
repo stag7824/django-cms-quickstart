@@ -1,0 +1,20 @@
+{% load i18n %}{% for child in children %}
+    <li class="nav-item{% if child.children %} dropdown vx-mega{% endif %}">
+        {% if child.children %}
+            <a class="nav-link dropdown-toggle{% if child.selected or child.ancestor %} active{% endif %}" href="{{ child.get_absolute_url }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ child.get_menu_title }}</a>
+            <div class="dropdown-menu vx-mega-panel">
+                <a class="vx-mega-all" href="{{ child.get_absolute_url }}">{% trans "View all" %} &rarr;</a>
+                <div class="vx-mega-columns">
+                    {% for group in child.children %}
+                        <div class="vx-mega-column">
+                            <a class="vx-mega-heading" href="{{ group.get_absolute_url }}">{{ group.get_menu_title }}</a>
+                            {% for item in group.children %}<a class="vx-mega-link" href="{{ item.get_absolute_url }}">{{ item.get_menu_title }}</a>{% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <a class="nav-link{% if child.selected %} active{% endif %}" href="{{ child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+        {% endif %}
+    </li>
+{% endfor %}
