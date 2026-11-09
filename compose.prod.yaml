@@ -9,7 +9,7 @@ services:
       DEFAULT_STORAGE_DSN: file:///data/media/?url=%2Fmedia%2F
       SECRET_KEY: ${SERVICE_BASE64_64_DJANGO}
       DEBUG: "False"
-      DOMAIN: formlabs.gardazi.com
+      DOMAIN: voxelry.gardazi.com
     volumes:
       - /home/ubuntu/config/formlabs-media:/data
     depends_on:
