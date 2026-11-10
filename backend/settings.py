@@ -272,6 +272,9 @@ MEDIA_ROOT = os.environ.get('MEDIA_ROOT', '/data/media/')
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 CMS_CONFIRM_VERSION4 = True
+
+# Let article headings keep an id, so "In this article" lists can link to them.
+TEXT_ADDITIONAL_ATTRIBUTES = {'h2': {'id'}, 'h3': {'id'}}
 DJANGOCMS_VERSIONING_ALLOW_DELETING_VERSIONS = True
 
 # Keep each page area to the blocks it was designed for.

@@ -136,6 +136,16 @@ class Command(SeedCommand):
                 self.fill(content, seed.CONTENT[(key, "de")]())
                 self.publish(content)
 
+    def add_resin_comparison(self):
+        if "resin-comparison" not in self.pages:
+            row = next(row for row in seed.PAGES if row[0] == "resin-comparison")
+            self.create_seed_page(row)
+            content = self.pages["resin-comparison"].get_admin_content("en")
+            self.fill(content, seed.CONTENT[("resin-comparison", "en")]())
+            self.publish(content)
+        # Feature it at the top of the English home page.
+        self.rebuild("home", "en", "Sections")
+
     def complete_german_home(self):
         if "harbor" not in self.pages:
             raise SkipUpdate("the Harbor Robotics story it links to does not exist yet.")
@@ -148,4 +158,5 @@ UPDATES = [
     ("2026-11-expand-sla-vs-sls", "expand_sla_vs_sls"),
     ("2026-11-german-contact-support", "add_german_contact_and_support"),
     ("2026-11-german-home", "complete_german_home"),
+    ("2026-11-resin-comparison", "add_resin_comparison"),
 ]

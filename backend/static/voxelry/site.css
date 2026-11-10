@@ -149,6 +149,18 @@ img { max-width: 100%; height: auto; }
 .vx-prose { padding-top: 1.5rem; padding-bottom: 1.5rem; font-size: 1.05rem; line-height: 1.65; }
 .vx-text-media .vx-prose { padding: .5rem 0; }
 .vx-prose h2 { margin: 2.25rem 0 .75rem; font-size: 1.6rem; }
+.vx-prose h3 { margin: 1.75rem 0 .5rem; font-size: 1.2rem; }
+.vx-prose [id] { scroll-margin-top: 110px; }
+.vx-prose .vx-table { margin: 1.5rem 0 .5rem; font-size: .95rem; }
+.vx-prose .vx-table th, .vx-prose .vx-table td { padding: .65rem .75rem; vertical-align: top; }
+.vx-prose .vx-table-note { margin-bottom: 1.5rem; }
+.vx-callout { margin: 1.5rem 0; padding: 1rem 1.25rem; background: var(--vx-light); border-left: 3px solid var(--vx-accent); border-radius: 4px; }
+.vx-callout p:last-child, .vx-callout ul:last-child { margin-bottom: 0; }
+.vx-callout-answer { background: #fff; border: 1px solid var(--vx-line); border-left: 3px solid var(--vx-accent); }
+.vx-toc { margin: 1.5rem 0 2rem; padding: 1rem 1.25rem; border: 1px solid var(--vx-line); border-radius: 4px; font-size: .95rem; }
+.vx-toc p { margin-bottom: .4rem; }
+.vx-toc ol { margin: 0; padding-left: 1.25rem; columns: 2 16rem; }
+.vx-toc a { color: var(--vx-accent-dark); }
 .vx-prose blockquote { margin: 1.5rem 0; padding-left: 1.25rem; border-left: 3px solid var(--vx-accent); font-size: 1.15rem; }
 
 /* Footer */

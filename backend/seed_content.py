@@ -254,6 +254,11 @@ PAGES = [
     ("sla-vs-sls", "blog", "voxelry/article.html", "sla-vs-sls", "SLA vs SLS: How to Choose a Print Technology",
      "A practical guide to choosing between resin and powder 3D printing based on your part, budget and workflow.",
      {"nav": False, "resource": ("guide", "", date(2026, 5, 11), "materials")}),
+    ("resin-comparison", "blog", "voxelry/article.html", "resin-3d-printer-comparison",
+     "Resin 3D Printer Comparison: Form Studio 1 vs. Elegoo, Anycubic, and HeyGears",
+     "Form Studio 1 vs. Elegoo Saturn 4 Ultra 16K, Anycubic Photon P1 and HeyGears Reflex RS Turbo: print quality, speed, materials, safety and cost.",
+     {"nav": False, "page_title": "Best Resin 3D Printer: Form Studio 1 vs. 3 Rivals",
+      "resource": ("guide", "", date(2026, 11, 11), "accuracy")}),
     ("events", "learn", "voxelry/listing.html", "events", "Events",
      "Meet the Voxelry team at trade shows and workshops across Europe and see printed parts up close.", {"url": "events"}),
     ("support", None, "voxelry.html", "support", "Support",
@@ -311,6 +316,18 @@ def home_en():
             primary=("Explore Sinter X", page("sinter-x")), secondary=("All 3D printers", page("printers")),
         )],
         "Sections": [
+            section(
+                "Featured guide",
+                text_media(
+                    "Resin 3D printer comparison: Form Studio 1 vs. Elegoo, Anycubic, and HeyGears",
+                    "<p>Four MSLA resin printers compared on print quality, speed, ease of use, materials, safety and total cost of ownership, with a clear pick for every kind of maker.</p>"
+                    "<p><em>A portfolio piece about real products, written in the style of the Formlabs blog.</em></p>",
+                    art("accuracy"), "Close-up of a precise voxel surface",
+                    eyebrow="Writing sample",
+                    cta=("Read the comparison", page("resin-comparison")),
+                ),
+                tone="light",
+            ),
             section(
                 "Find your printer",
                 cards(
@@ -891,6 +908,213 @@ def article(*body, related=True):
     }
 
 
+RESIN_COMPARISON_SOURCES = "Specifications checked against the manufacturers' published pages on 11 November 2026."
+
+
+def resin_comparison():
+    return {
+        "Body": [
+            text(
+                '<div class="vx-callout"><p><strong>Writing sample.</strong> This article is a portfolio piece written in the style of the Formlabs blog. '
+                "It is not published by, or affiliated with, Formlabs, Elegoo, Anycubic or HeyGears. "
+                f"{RESIN_COMPARISON_SOURCES}</p></div>"
+                "<p>Choosing a resin 3D printer used to mean a trade-off: pay more for a streamlined professional workflow, "
+                "or spend less on a machine that needs more hands-on setup and maintenance.</p>"
+                "<p>That line is blurring. Affordable resin printers now offer high-resolution screens, automatic leveling, heated resin "
+                "tanks and smart monitoring. But an impressive spec sheet doesn't always add up to a better printing experience.</p>"
+                "<p>We compare the <strong>Formlabs Form Studio 1</strong>, <strong>Elegoo Saturn 4 Ultra 16K</strong>, "
+                "<strong>Anycubic Photon P1</strong> and <strong>HeyGears Reflex RS Turbo</strong> on the factors that matter most: "
+                "print quality, speed, ease of use, materials, safety and long-term cost. Whether you print miniatures, develop functional "
+                "prototypes or bring resin printing into a small business, the right choice depends on more than the price tag.</p>"
+                '<div class="vx-callout vx-callout-answer"><p><strong>The short answer</strong></p><ul>'
+                "<li><strong>Best for affordable, high-resolution miniatures:</strong> Elegoo Saturn 4 Ultra 16K</li>"
+                "<li><strong>Best for dual-color and dual-material experiments:</strong> Anycubic Photon P1</li>"
+                "<li><strong>Best for an automation-focused hobby workflow:</strong> HeyGears Reflex RS Turbo</li>"
+                "<li><strong>Best for an accessible professional workflow:</strong> Formlabs Form Studio 1</li>"
+                "</ul></div>"
+                '<nav class="vx-toc" aria-label="In this article"><p><strong>In this article</strong></p><ol>'
+                '<li><a href="#how-it-works">How resin 3D printing works</a></li>'
+                '<li><a href="#print-quality">Print quality</a></li>'
+                '<li><a href="#print-speed">Print speed</a></li>'
+                '<li><a href="#ease-of-use">Ease of use</a></li>'
+                '<li><a href="#materials">Materials</a></li>'
+                '<li><a href="#safety">Safety</a></li>'
+                '<li><a href="#cost">Price and total cost</a></li>'
+                '<li><a href="#which-to-choose">Which printer should you choose?</a></li>'
+                '<li><a href="#faq">FAQ</a></li>'
+                "</ol></nav>"
+            ),
+            text(
+                '<h2 id="how-it-works">How Resin 3D Printing Works: Four Printers, Four Approaches</h2>'
+                "<p>All four printers use masked stereolithography (MSLA). A light source shines through an LCD screen that masks each layer, "
+                "curing liquid photopolymer resin one layer at a time while the build platform lifts the part out of the tank. "
+                "The core technology is the same, but each machine takes a different approach to the workflow around it.</p>"
+                '<div class="vx-table table-responsive"><table class="table"><thead><tr>'
+                '<th scope="col">Printer</th><th scope="col">Build volume</th><th scope="col">Native XY pixel size</th><th scope="col">Key differentiator</th>'
+                "</tr></thead><tbody>"
+                '<tr><th scope="row">Formlabs Form Studio 1</th><td>200 × 125 × 235 mm</td><td>35 µm</td><td>Validated materials, automatic resin handling, professional workflow</td></tr>'
+                '<tr><th scope="row">Elegoo Saturn 4 Ultra 16K</th><td>211.68 × 118.37 × 220 mm</td><td>14 × 19 µm</td><td>High-resolution screen and accessible entry price</td></tr>'
+                '<tr><th scope="row">Anycubic Photon P1</th><td>223 × 126 × 230 mm</td><td>16.8 × 24.8 µm</td><td>Optional dual-color or dual-material printing</td></tr>'
+                '<tr><th scope="row">HeyGears Reflex RS Turbo</th><td>222 × 122 × 228 mm</td><td>29.7 µm</td><td>Automatic resin refill and a guided printing ecosystem</td></tr>'
+                "</tbody></table></div>"
+                '<p class="vx-table-note">Specifications are based on manufacturer-published information. Print performance depends on materials, settings, geometry and operating conditions.</p>'
+                "<p>The differences matter most once you move beyond the spec sheet.</p>"
+            ),
+            text(
+                '<h2 id="print-quality">Print Quality: Why Resolution Doesn\'t Tell the Whole Story</h2>'
+                "<p>It's tempting to compare resin 3D printers by screen resolution alone. The Elegoo Saturn 4 Ultra 16K advertises a 16K LCD "
+                "with a native XY pixel size of about 14 × 19 µm. The Anycubic Photon P1 uses 16.8 × 24.8 µm pixels, and the Form Studio 1 uses 35 µm pixels.</p>"
+                "<p>Does a printer with smaller pixels always make better parts? Not necessarily.</p>"
+                "<p><strong>Pixel size is only one factor in print quality.</strong> Dimensional accuracy, surface finish and fine detail also depend on "
+                "light uniformity, resin properties, exposure settings and the forces acting on a part as each layer releases from the tank.</p>"
+                "<p>Form Studio 1 uses Low Force Display (LFD) technology: a backlight unit with 28 LEDs and collimating lenses, combined with a flexible "
+                "film resin tank that reduces peel forces. Pre-tuned anti-aliasing and validated material settings are designed to produce sharp features and consistent surfaces.</p>"
+                "<p>For miniature makers, surface texture and small decorative details may come first. For engineers, parts also need to fit together as designed and hold their dimensions.</p>"
+                '<div class="vx-callout"><p><strong>The takeaway:</strong> compare real printed parts, dimensional tolerances and surface finish under equivalent conditions, not just LCD resolution.</p></div>'
+            ),
+            text(
+                '<h2 id="print-speed">Print Speed: Look Beyond the Maximum Number</h2>'
+                "<p>Manufacturers advertise maximum print speeds, but those numbers often rely on different resins, layer heights and test geometries.</p>"
+                "<p>Form Studio 1 prints at up to <strong>130 mm/h with Alpha Fast Resin</strong>. Formlabs reports an average of about 40 mm/h across "
+                "materials, which puts most prints under two hours. Elegoo advertises up to 150 mm/h for the Saturn 4 Ultra 16K, and the Anycubic Photon P1 "
+                "and HeyGears Reflex RS Turbo also offer accelerated print modes.</p>"
+                "<p>These figures are not directly comparable benchmarks. A faster setting may use thicker layers or a material formulated for rapid curing, "
+                "and the resulting part can have a different surface and different mechanical properties. When you evaluate speed, ask:</p>"
+                "<ul><li>How long does the printer take to make the part you actually need?</li>"
+                "<li>Does the faster setting still meet your dimensional and surface-finish requirements?</li>"
+                "<li>How much preparation, washing and curing does the workflow add?</li>"
+                "<li>How consistently can you reproduce the same part, job after job?</li></ul>"
+                "<p>In product development, speed matters because it buys you more design iterations. But the fastest theoretical print isn't always the fastest route to a finished, usable part.</p>"
+            ),
+            text(
+                '<h2 id="ease-of-use">Ease of Use: Starting a Print vs. Finishing a Part</h2>'
+                "<p>Resin printing involves more than preparing a file and pressing start. You manage resin, set up supports, maintain the printer, "
+                "remove parts, wash off uncured resin and post-cure. When you print every week, those steps add up.</p>"
+                "<h3>Form Studio 1: A Streamlined Professional Workflow</h3>"
+                "<p>Form Studio 1 is designed to simplify every step from file to finished part. Formlabs' free "
+                '<a href="https://formlabs.com/software/preform/" rel="noopener">PreForm software</a> suggests orientation, supports and layout automatically, '
+                "and validated resin profiles remove the need to dial in exposure settings by hand. With supported cartridge-based materials, "
+                "<strong>automatic resin dispensing</strong> fills and refills the tank, so you never pour resin yourself.</p>"
+                "<p>The optional Build Platform Flex makes part removal easier, and Form Studio Wash+Cure provides compact washing and curing. "
+                "For designers, educators and small businesses, that means repeatable results without a lot of time spent on setup.</p>"
+                "<h3>Elegoo Saturn 4 Ultra 16K: Flexible and Feature-Rich</h3>"
+                "<p>Elegoo offers automatic leveling, tank heating, tilt-release technology and camera-based monitoring, features that make resin printing "
+                "more accessible to hobbyists. Resin handling is still manual, and you may need to adjust settings and supports to get the best results "
+                "from different materials. For enthusiasts who enjoy tuning their machines, that flexibility is part of the appeal.</p>"
+                "<h3>Anycubic Photon P1: More Creative Possibilities</h3>"
+                "<p>The Photon P1 combines a high-resolution optical system with resin heating, monitoring and an optional dual-color or dual-material platform. "
+                "That option opens up interesting possibilities for creators who want to combine colors or materials in one workflow. As with other "
+                "consumer resin printers, plan for material setup, compatibility checks and post-processing.</p>"
+                "<h3>HeyGears Reflex RS Turbo: Automation for Enthusiasts</h3>"
+                "<p>HeyGears offers a comparatively guided workflow through its Blueprint Studio software, with automatic resin refill and printer monitoring. "
+                "That makes it a strong alternative for users who want automated resin printing, particularly for models and figures. "
+                "Check which features come with the configuration you buy, and how its materials, accessories and software fit your applications.</p>"
+            ),
+            text(
+                '<h2 id="materials">Materials: What Happens When Your Projects Get More Demanding?</h2>'
+                "<p>Choosing a resin printer also means choosing the materials you'll print with. A resin that works for decorative miniatures may not suit "
+                "a snap-fit enclosure, a flexible component, a casting pattern or a functional prototype.</p>"
+                "<p>Form Studio 1 supports six Alpha Resins developed for everyday printing:</p>"
+                "<ul><li>Alpha Grey, White and Black for versatile models and prototypes</li>"
+                "<li>Alpha Clear for transparent parts</li><li>Alpha Fast for rapid iterations</li><li>Alpha Model for highly detailed models</li></ul>"
+                "<p>It also has validated settings for selected engineering materials, including <strong>Tough 1500 Resin V2, Flexible 80A Resin V2 and True Cast Resin</strong>, "
+                "so you can move from general-purpose models to flexible components and jewelry casting.</p>"
+                "<h3>Is Form Studio 1 an Open Resin Printer?</h3>"
+                "<p>Yes. Open Material Mode is included, so you can print with compatible third-party 405 nm resins. There is one important distinction: "
+                "automatic dispensing applies to supported cartridge-based materials. Third-party resins are filled by hand, need user-tuned settings, and some "
+                "require the compatible Resin Tank Pro. Form Studio 1 also uses PreForm rather than third-party slicers. An open platform gives you flexibility, "
+                "but the experience can differ from printing with validated Formlabs materials.</p>"
+            ),
+            text(
+                '<h2 id="safety">Is 3D Printer Resin Toxic? What to Know About Resin Printer Safety</h2>'
+                "<p>Resin handling deserves attention, especially in a classroom, studio, workshop or home. Uncured photopolymer resins can present "
+                "skin-contact and inhalation hazards, and the right precautions depend on the resin, the operating conditions and the space.</p>"
+                "<p>Formlabs developed Alpha Resins and the Form Studio 1 ecosystem with a particular focus on material safety and emissions. "
+                "<strong>Form Studio 1, operated with qualifying Alpha Resins and the Formlabs VOC Extractor, has earned UL GREENGUARD Gold certification for low chemical emissions.</strong></p>"
+                "<p>That certification applies to the specified combination of printer, materials and extractor. It is not a blanket certification for every "
+                "resin or setup. You still need to follow each material's safety data sheet, wear appropriate protective equipment, and handle uncured resin "
+                "and cleaning chemicals correctly.</p>"
+                "<p>When you compare resin printers, look at the whole operating environment, not just whether a printer has a filter or an air-quality claim. "
+                "Where several people work every day, independently tested emissions data can be an important buying factor.</p>"
+            ),
+            text(
+                '<h2 id="cost">How Much Does a Resin 3D Printer Cost? Price vs. Total Cost of Ownership</h2>'
+                "<p>Purchase price matters, but it's only part of the cost. Form Studio 1 starts at <strong>$699 in the United States</strong>, and Alpha Resins "
+                "start at <strong>$29 per liter</strong>. Other packages add workflow accessories and post-processing equipment.</p>"
+                "<p>The Elegoo Saturn 4 Ultra 16K generally targets buyers looking for a lower entry price. Anycubic offers a competitive set of consumer and "
+                "prosumer features, while HeyGears provides a more guided, automation-focused system. To compare the true cost, include:</p>"
+                "<ol><li><strong>Printer and accessories:</strong> does the package include everything your workflow needs?</li>"
+                "<li><strong>Resin consumption:</strong> what does each finished part cost in the material you need?</li>"
+                "<li><strong>Consumables:</strong> how often will you replace tanks, films and cleaning supplies?</li>"
+                "<li><strong>Post-processing:</strong> what equipment and operator time do washing, drying and curing take?</li>"
+                "<li><strong>Failed prints:</strong> how much resin, labor and time do you lose when a job has to be reprinted?</li>"
+                "<li><strong>Support and maintenance:</strong> what warranty, technical support and service options are available?</li></ol>"
+                "<p>If you print occasionally, a lower-cost machine may be the most economical choice. If your team prints often, an integrated workflow becomes "
+                "more valuable as volume grows.</p>"
+            ),
+            text(
+                '<h2 id="which-to-choose">Which Resin 3D Printer Should You Choose?</h2>'
+                "<p>There's no universal answer. The best resin 3D printer is the one that fits your applications, budget and workflow.</p>"
+                "<h3>Best Resin Printer for Affordable, High-Resolution Miniatures</h3>"
+                "<p><strong>Consider the Elegoo Saturn 4 Ultra 16K.</strong> Its fine native pixel size, built-in features and accessible price make it a compelling "
+                "option for hobbyists focused on highly detailed miniatures, figures and decorative models.</p>"
+                "<h3>Best for Dual-Color and Dual-Material Experiments</h3>"
+                "<p><strong>Consider the Anycubic Photon P1.</strong> Its optional dual-color and dual-material system gives creators another way to experiment with resin printing.</p>"
+                "<h3>Best for an Automation-Focused Hobby Workflow</h3>"
+                "<p><strong>Consider the HeyGears Reflex RS Turbo.</strong> Automatic resin refill, guided software and model-focused features suit users who value convenience and a structured process.</p>"
+                "<h3>Best for an Accessible Professional Resin Printing Workflow</h3>"
+                "<p><strong>Consider Formlabs Form Studio 1.</strong> For designers, engineers, educators and creators who want to spend less time configuring a printer and "
+                "more time making parts, Form Studio 1 combines validated materials, automated resin handling, fast printing and integrated post-processing. "
+                "Its value is in the whole workflow, not one headline spec.</p>"
+                "<p>For demanding engineering applications that need a wider range of specialized materials, "
+                '<a href="https://formlabs.com/3d-printers/form-4/" rel="noopener">Form 4</a> may be the better Formlabs system.</p>'
+                '<h2 id="faq">Frequently Asked Questions</h2>'
+            ),
+            faq(
+                ("Is a resin 3D printer good for beginners?",
+                 "Yes, but ease of use varies. Look for automated setup, clear software guidance, reliable material profiles and accessible training. "
+                 "Resin printers also require safe material handling and post-processing, so plan for washing, curing and protective equipment from day one."),
+                ("What is the best resin printer for miniatures?",
+                 "It depends on the level of detail, print volume, materials and workflow you need. The Elegoo Saturn 4 Ultra 16K is a strong option for "
+                 "cost-conscious miniature makers. Form Studio 1 is an alternative if you prioritize validated materials and a more integrated workflow."),
+                ("Is a resin 3D printer better than a filament printer?",
+                 "It depends on the part. Resin (SLA and MSLA) printing excels at smooth surfaces and fine features, which suits miniatures, detailed models "
+                 "and precise prototypes. Filament (FDM) printing can be better for large, low-cost or some mechanically demanding parts, and it needs less "
+                 "post-processing. Many teams use both."),
+                ("How much does a resin 3D printer cost?",
+                 "Consumer resin printers start at a few hundred dollars. Form Studio 1 starts at $699 in the United States, with Alpha Resins from $29 per liter. "
+                 "Budget for resin, tanks, cleaning supplies and post-processing equipment as well as the printer itself."),
+                ("Is 3D printer resin toxic?",
+                 "Uncured resin can irritate skin and release vapors, so wear gloves and eye protection, work in a ventilated space and follow each resin's "
+                 "safety data sheet. Fully washed and cured parts are much safer to handle. Some systems, such as Form Studio 1 with qualifying Alpha Resins "
+                 "and the VOC Extractor, are independently certified for low chemical emissions."),
+                ("Can Form Studio 1 use third-party resin?",
+                 "Yes. Open Material Mode supports compatible third-party 405 nm resins, but you fill the tank by hand and tune the settings yourself. "
+                 "Some materials also require the Resin Tank Pro."),
+                ("Does Form Studio 1 require washing and curing?",
+                 "Yes. Printed parts must be washed to remove uncured resin, and post-curing requirements vary by material and application. Formlabs offers "
+                 "compatible wash and cure systems, including the compact Form Studio Wash+Cure, with material-specific settings."),
+            ),
+            text(
+                "<h2>Professional Resin Printing, Made More Accessible</h2>"
+                "<p>Affordable resin printers have come a long way. Even entry-level systems now offer high-resolution displays and features that once "
+                "belonged to much more expensive machines. But choosing the right printer takes more than comparing maximum speeds, screen resolutions or prices.</p>"
+                "<p>The real question is how easily you can turn an idea into a finished part, and then do it again tomorrow. Form Studio 1 brings Formlabs' "
+                "professional resin printing experience to a more accessible platform, combining speed, fine detail, validated materials and a streamlined workflow.</p>"
+                '<p><strong>Ready to see what you can create?</strong> <a href="https://formlabs.com/3d-printers/form-studio-1/" rel="noopener">Explore Form Studio 1</a>, '
+                "or compare it in more detail:</p>"
+                '<ul><li><a href="https://formlabs.com/compare/formlabs-form-studio-1-vs-elegoo-saturn-4-ultra-16k/" rel="noopener">Form Studio 1 vs. Elegoo Saturn 4 Ultra 16K</a></li>'
+                '<li><a href="https://formlabs.com/compare/formlabs-form-studio-1-vs-anycubic-p1/" rel="noopener">Form Studio 1 vs. Anycubic Photon P1</a></li>'
+                '<li><a href="https://formlabs.com/compare/formlabs-form-studio-1-vs-heygears-reflex-turbo-rs/" rel="noopener">Form Studio 1 vs. HeyGears Reflex RS Turbo</a></li></ul>'
+                '<p><a href="https://formlabs.com/blog/fdm-vs-sla-vs-sls-how-to-choose-the-right-3d-printing-technology/" rel="noopener">Read the guide to FDM, SLA and SLS 3D printing</a> '
+                "for a deeper look at each technology.</p>"
+            ),
+        ],
+        "Related": [section("Keep reading", resources(limit=3, filters=False), tone="light")],
+        "Call to action": [],
+    }
+
+
 CONTENT = {
     ("home", "en"): home_en,
     ("home", "de"): home_de,
@@ -1143,6 +1367,7 @@ CONTENT = {
         "<p>Not sure which fits? Send us a part file and we will print a sample in both technologies so you can compare them side by side.</p>"
         "<p>Voxelry and its products are fictional, and the figures in this guide are illustrative.</p>"
     ),
+    ("resin-comparison", "en"): resin_comparison,
     ("support", "en"): lambda: {
         "Hero": [hero("How can we help?", "Setup guides, troubleshooting and service plans for your printers.", image=art("aids"), alt="Voxel model of an assembly jig")],
         "Content": [section("Support options", cards(

@@ -31,9 +31,9 @@
             <div class="container-xl">
                 <strong>{% if LANGUAGE_CODE == "de" %}Testprojekt{% else %}Test project{% endif %}</strong>
                 {% if LANGUAGE_CODE == "de" %}
-                    Voxelry ist eine fiktive Übungswebsite. Alle Inhalte werden am <time datetime="{{ sunset_iso }}">{{ sunset_day|date:"j.n.Y" }}</time> entfernt.
+                    <span>Voxelry ist eine fiktive Übungswebsite. Alle Inhalte werden am <time datetime="{{ sunset_iso }}">{{ sunset_day|date:"j.n.Y" }}</time> entfernt.</span>
                 {% else %}
-                    Voxelry is a fictional practice site. All content will be removed on <time datetime="{{ sunset_iso }}">{{ sunset_day|date:"j F Y" }}</time>.
+                    <span>Voxelry is a fictional practice site. All content will be removed on <time datetime="{{ sunset_iso }}">{{ sunset_day|date:"j F Y" }}</time>.</span>
                 {% endif %}
                 <span class="vx-sunset-countdown" data-sunset="{{ sunset_iso }}" data-lang="{{ LANGUAGE_CODE }}" aria-live="off"></span>
             </div>
