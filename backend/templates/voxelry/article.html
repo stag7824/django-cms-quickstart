@@ -1,9 +1,5 @@
 {% extends "voxelry/shell.html" %}{% load cms_tags i18n thumbnail voxelry_tags %}
-{% block meta %}
-    {{ block.super }}
-    {% resource_meta as meta %}
-    {% if meta.listing_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ meta.listing_image.url }}"/>{% endif %}
-{% endblock meta %}
+{% block og_type %}article{% endblock %}
 {% block main %}
     {% resource_meta as meta %}
     {% page_attribute "title" as headline %}{% page_attribute "meta_description" as description %}

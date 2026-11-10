@@ -1,4 +1,5 @@
-{% extends "voxelry/shell.html" %}{% load cms_tags %}
+{% extends "voxelry/shell.html" %}{% load cms_tags voxelry_tags %}
+{% block structured_data %}<script type="application/ld+json">{% product_structured_data %}</script>{% endblock %}
 {% block main %}
     {% placeholder "Hero" %}
     {% placeholder "Highlights" %}

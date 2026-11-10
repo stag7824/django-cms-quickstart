@@ -1,9 +1,27 @@
 {% extends "bootstrap5.html" %}{% load cms_tags menu_tags djangocms_alias_tags static i18n voxelry_tags %}
 {% block title %}{% page_attribute "page_title" %} | Voxelry{% endblock %}
 {% block base_css %}{{ block.super }}<link href="{% static 'voxelry/site.css' %}" rel="stylesheet"/>{% endblock %}
+{% block meta %}
+    {% page_attribute "page_title" as share_title %}{% page_attribute "meta_description" as share_description %}{% share_image as share_image_url %}
+    <meta name="description" content="{{ share_description }}"/>
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}"/>
+    <meta property="og:site_name" content="Voxelry"/>
+    <meta property="og:locale" content="{% if LANGUAGE_CODE == "de" %}de_DE{% else %}en_GB{% endif %}"/>
+    <meta property="og:title" content="{{ share_title }} | Voxelry"/>
+    <meta property="og:description" content="{{ share_description }}"/>
+    <meta property="og:image" content="{{ share_image_url }}"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="{{ share_title }} | Voxelry"/>
+    <meta name="twitter:description" content="{{ share_description }}"/>
+    <meta name="twitter:image" content="{{ share_image_url }}"/>
+{% endblock meta %}
 {% block page_head %}
     {% page_alternates as alternates %}
     {% for alternate in alternates %}<link rel="alternate" hreflang="{{ alternate.code }}" href="{{ alternate.absolute_url }}"/>{% if alternate.code == "en" %}<link rel="alternate" hreflang="x-default" href="{{ alternate.absolute_url }}"/>{% endif %}{% endfor %}
+    {% breadcrumb_structured_data as breadcrumbs %}{% if breadcrumbs %}<script type="application/ld+json">{{ breadcrumbs }}</script>{% endif %}
+    {% block structured_data %}{% endblock %}
 {% endblock %}
 {% block navbar %}
     {% page_url "home" as home_url %}{% page_url "contact" as contact_url %}{% page_alternates as alternates %}

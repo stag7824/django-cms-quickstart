@@ -16,7 +16,7 @@ from filer.models import Folder, Image as FilerImage
 from PIL import Image, ImageDraw
 
 from backend import seed_content as seed
-from backend.models import Material, ResourceMeta
+from backend.models import AppliedContentUpdate, Material, ResourceMeta
 
 PALETTES = {
     "ember": ("#26272c", ["#f05a28", "#ff8a4c", "#3a3d45", "#f4d9c6"]),
@@ -111,6 +111,10 @@ class Command(BaseCommand):
             self.create_pages()
             self.create_materials()
             self.create_footer()
+            # The seed already contains every later content update, so none of them should run here.
+            from backend.management.commands.update_voxelry import UPDATES
+            for name, _method in UPDATES:
+                AppliedContentUpdate.objects.get_or_create(name=name)
         published = PageContent.objects.count()
         self.stdout.write(self.style.SUCCESS(
             f"Created {len(self.pages)} pages ({published} published language versions), "
@@ -137,50 +141,10 @@ class Command(BaseCommand):
             )
 
     def create_pages(self):
-        for key, parent, template, slug, title, description, options in seed.PAGES:
-            page = create_page(
-                title=title,
-                template=template,
-                language="en",
-                slug=slug,
-                parent=self.pages.get(parent),
-                reverse_id=key,
-                meta_description=description,
-                overwrite_url=options.get("url"),
-                in_navigation=options.get("nav", True),
-                created_by=self.user,
-            )
-            self.pages[key] = page
-            # create_page() has no page_title argument, unlike create_page_content().
-            PageContent.admin_manager.filter(page=page, language="en").update(
-                page_title=options.get("page_title", title)
-            )
-            if key == "home":
-                page.set_as_homepage()
-            if options.get("resource"):
-                resource_type, industry, published_on, image = options["resource"]
-                ResourceMeta.objects.create(
-                    extended_object=page,
-                    resource_type=resource_type,
-                    industry=industry,
-                    published_on=published_on,
-                    listing_image=self.images[image],
-                )
-
-        for key, (title, slug, description, options, _publish) in seed.GERMAN_PAGES.items():
-            english = self.pages[key].get_admin_content("en")
-            create_page_content(
-                language="de",
-                title=title,
-                page=self.pages[key],
-                slug=slug,
-                meta_description=description,
-                page_title=options.get("page_title", title),
-                overwrite_url=options.get("url"),
-                created_by=self.user,
-                template=english.template,
-                in_navigation=english.in_navigation,
-            )
+        for row in seed.PAGES:
+            self.create_seed_page(row)
+        for key in seed.GERMAN_PAGES:
+            self.create_german_content(key)
 
         # Links need every page to exist, so content is added in a second pass.
         for (key, language), build in seed.CONTENT.items():
@@ -192,6 +156,54 @@ class Command(BaseCommand):
         for key, (*_details, publish) in seed.GERMAN_PAGES.items():
             if publish:
                 self.publish(self.pages[key].get_admin_content("de"))
+
+    def create_seed_page(self, row):
+        key, parent, template, slug, title, description, options = row
+        page = create_page(
+            title=title,
+            template=template,
+            language="en",
+            slug=slug,
+            parent=self.pages.get(parent),
+            reverse_id=key,
+            meta_description=description,
+            overwrite_url=options.get("url"),
+            in_navigation=options.get("nav", True),
+            created_by=self.user,
+        )
+        self.pages[key] = page
+        # create_page() has no page_title argument, unlike create_page_content().
+        PageContent.admin_manager.filter(page=page, language="en").update(
+            page_title=options.get("page_title", title)
+        )
+        if key == "home":
+            page.set_as_homepage()
+        if options.get("resource"):
+            resource_type, industry, published_on, image = options["resource"]
+            ResourceMeta.objects.create(
+                extended_object=page,
+                resource_type=resource_type,
+                industry=industry,
+                published_on=published_on,
+                listing_image=self.images[image],
+            )
+        return page
+
+    def create_german_content(self, key):
+        title, slug, description, options, _publish = seed.GERMAN_PAGES[key]
+        english = self.pages[key].get_admin_content("en")
+        return create_page_content(
+            language="de",
+            title=title,
+            page=self.pages[key],
+            slug=slug,
+            meta_description=description,
+            page_title=options.get("page_title", title),
+            overwrite_url=options.get("url"),
+            created_by=self.user,
+            template=english.template,
+            in_navigation=english.in_navigation,
+        )
 
     def fill(self, content, placeholders):
         for slot, blocks in placeholders.items():

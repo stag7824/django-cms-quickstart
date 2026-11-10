@@ -248,6 +248,9 @@ PAGES = [
     ("alpenrad", "blog", "voxelry/article.html", "alpenrad-validation", "How Alpenrad Validates Interior Parts In-House",
      "A fictional customer story: how a German automotive supplier validates interior parts before cutting any tools.",
      {"nav": False, "resource": ("case_study", "automotive", date(2026, 7, 21), "tooling")}),
+    ("harbor", "blog", "voxelry/article.html", "harbor-robotics", "How Harbor Robotics Prints Its Gripper Fingers",
+     "A fictional customer story: how a robotics start-up moved its gripper fingers from machined parts to SLS nylon.",
+     {"nav": False, "resource": ("case_study", "manufacturing", date(2026, 10, 28), "parts")}),
     ("sla-vs-sls", "blog", "voxelry/article.html", "sla-vs-sls", "SLA vs SLS: How to Choose a Print Technology",
      "A practical guide to choosing between resin and powder 3D printing based on your part, budget and workflow.",
      {"nav": False, "resource": ("guide", "", date(2026, 5, 11), "materials")}),
@@ -281,6 +284,12 @@ GERMAN_PAGES = {
     "automotive": ("Automobilindustrie", "automobilindustrie",
                    "So nutzen Automobilteams den 3D-Druck im eigenen Haus, um Entwürfe früher zu prüfen und Werkzeugzeiten zu senken.",
                    {"url": "branchen/automobilindustrie", "page_title": "3D-Druck für die Automobilindustrie"}, True),
+    "support": ("Support", "support",
+                "Einrichtungsanleitungen, Hilfe bei Druckproblemen und Servicepläne, damit Ihre Voxelry-Drucker zuverlässig laufen.",
+                {}, True),
+    "contact": ("Kontakt", "kontakt",
+                "Sprechen Sie mit dem Voxelry-Team über Drucker, Materialien, Musterteile oder eine Vorführung für Ihre Anwendung.",
+                {"page_title": "Kontakt zu Voxelry"}, True),
     # Left as a draft so the editor guide has a real page to review and publish.
     "sinter-x": ("Sinter X", "sinter-x",
                  "Sinter X ist ein SLS-3D-Drucker für robuste Nylonteile und Kleinserien, ganz ohne Stützstrukturen.",
@@ -369,7 +378,7 @@ def home_en():
                      "Jonas Weber", "Interior Development Lead", page("alpenrad"), "Read the story"),
                     ("Harbor Robotics", "End-use parts",
                      "Most of our gripper fingers now start and finish on Sinter X. No one has asked to go back.",
-                     "Mei Tan", "Mechanical Engineer", None, ""),
+                     "Mei Tan", "Mechanical Engineer", page("harbor"), "Read the story"),
                 ),
                 tone="light",
                 cta=("All customer stories", page("library")),
@@ -400,6 +409,24 @@ def home_de():
                 intro="Professionelle Harz- und Pulversysteme, alle mit derselben Software vorbereitet.",
                 cta=("Alle Drucker vergleichen", page("printers")),
             ),
+            # The use-case pages are English only, so these tabs carry no links. The
+            # section links to the one application page that exists in German.
+            section(
+                "Fertigen Sie alles mit Voxelry",
+                tabs(
+                    tab("Rapid Prototyping", "Heute sehen, morgen testen",
+                        "Machen Sie aus einem Konzept über Nacht einen realistischen, funktionsfähigen Prototyp und ändern Sie ihn am nächsten Tag erneut.",
+                        art("prototype"), "Voxel-Modell eines Zahnrad-Prototyps"),
+                    tab("Rapid Tooling", "Das Werkzeug testen, bevor Sie dafür bezahlen",
+                        "Drucken Sie Formen und Modelle im eigenen Haus und prüfen Sie einen Entwurf, bevor Sie in Serienwerkzeuge investieren.",
+                        art("tooling"), "Voxel-Modell einer gefrästen Halterung"),
+                    tab("Endteile", "Teile nach Bedarf fertigen",
+                        "Fertigen Sie Kleinserien und Ersatzteile genau dann, wenn Sie sie brauchen, ganz ohne Mindestbestellmengen.",
+                        art("parts"), "Voxel-Modell einer Serie von Endteilen"),
+                ),
+                tone="light",
+                cta=("3D-Druck in der Automobilindustrie", page("automotive")),
+            ),
             section(
                 "Materialien für jede Anwendung",
                 cards(
@@ -422,6 +449,22 @@ def home_de():
                     card("Treffen Sie uns auf Messen", "Sehen Sie gedruckte Teile aus der Nähe.", image=art("events"), alt="Voxel-Modell auf einem Messestand", link=page("events"), label="Termine ansehen"),
                     card("Besuchen Sie unser Büro in Budapest", "Vereinbaren Sie eine Vorführung mit unseren Fachleuten.", image=art("office"), alt="Voxel-Modell der Budapester Skyline", link=page("contact"), label="Besuch vereinbaren"),
                 ),
+            ),
+            # The customer stories are only published in English, and the labels say so.
+            section(
+                "Teams, die Dinge herstellen, vertrauen uns",
+                quotes(
+                    ("Northline Cycles", "Fertigungshilfen",
+                     "Früher haben wir uns nach dem Kalender des Zulieferers gerichtet. Heute richten wir uns nach der nächsten Testfahrt.",
+                     "Ana Kovács", "Leitung Entwicklung", page("northline"), "Fallstudie lesen (Englisch)"),
+                    ("Alpenrad", "Rapid Prototyping",
+                     "Passungsprobleme finden wir am Dienstag, beheben sie am Mittwoch und bezahlen nie mit einem Werkzeug dafür.",
+                     "Jonas Weber", "Leitung Interieur-Entwicklung", page("alpenrad"), "Fallstudie lesen (Englisch)"),
+                    ("Harbor Robotics", "Endteile",
+                     "Die meisten unserer Greiferfinger entstehen heute komplett auf dem Sinter X. Niemand will zurück.",
+                     "Mei Tan", "Mechanische Konstruktion", page("harbor"), "Fallstudie lesen (Englisch)"),
+                ),
+                tone="light",
             ),
         ],
         "Call to action": default_cta("de"),
@@ -1002,11 +1045,103 @@ CONTENT = {
         "<h2>The approach</h2><p>Alpenrad prints interior parts on a Voxel S1L and test-fits them in the vehicle before releasing any tooling.</p>"
         "<blockquote>We find the fit problems on Tuesday, fix them on Wednesday and never pay for them in tooling.</blockquote>"
     ),
+    ("harbor", "en"): lambda: article(
+        "<p>Harbor Robotics is a fictional start-up that builds pick-and-place robots for small warehouses. "
+        "Every robot ends in a gripper, and every gripper needs fingers shaped for the parcels it handles.</p>"
+        "<h2>The challenge</h2>"
+        "<p>The team used to machine each finger from aluminium. A new customer often meant a new parcel shape, "
+        "and a new finger design took two weeks to arrive. Fingers also wore out, so spares had to be ordered in bulk "
+        "and kept on a shelf in case a design changed.</p>"
+        "<h2>The approach</h2>"
+        "<p>Harbor now designs fingers in-house and prints them on a Sinter X in PA11 Pro Powder. The material flexes "
+        "enough to grip soft packaging without tearing it, and it does not crack when a robot misjudges a box. "
+        "Because SLS needs no support structures, one build holds fingers for several customers, nested together "
+        "and printed overnight.</p>"
+        "<blockquote>Most of our gripper fingers now start and finish on Sinter X. No one has asked to go back.</blockquote>"
+        "<h2>The result</h2>"
+        "<p>A new finger design goes from CAD to a test on the robot in two days. Spares are printed when a customer "
+        "needs them instead of being stocked. The team still machines the metal wrist that holds the fingers, "
+        "and prints everything that touches a parcel.</p>"
+        "<p>Harbor Robotics, its people and its figures are invented for this practice site.</p>"
+    ),
     ("sla-vs-sls", "en"): lambda: article(
-        "<p>Resin and powder printers solve different problems. Start with what the part has to do.</p>"
-        "<h2>Choose SLA when</h2><ul><li>Surface finish and fine detail matter most</li><li>You need clear, flexible or high-temperature materials</li></ul>"
-        "<h2>Choose SLS when</h2><ul><li>Parts need to be strong and durable</li><li>You want to fill a build with many parts and no supports</li></ul>"
-        "<p>Many teams use both, with the same software preparing every job.</p>"
+        "<p>Resin (SLA) and powder (SLS) printers both build parts layer by layer, but they solve different problems. "
+        "This guide explains how each one works, where each one is the better choice, and how to decide for a "
+        "specific part. Start with what the part has to do, not with the printer.</p>",
+
+        "<h2>How SLA works</h2>"
+        "<p>Stereolithography (SLA) cures liquid resin with light. In the Voxel S1 and Voxel S1L, a masked light source "
+        "hardens a whole layer at once, then the build platform lifts and the next layer is cured. Parts hang from the "
+        "platform on thin supports, which are removed after printing. Each part is then rinsed in solvent and post-cured "
+        "with heat and light, which the Rinse + Cure Station handles automatically.</p>"
+        "<p>Because each layer is cured from a liquid, SLA parts are smooth and very detailed. A 40 µm pixel size reproduces "
+        "fine text, thin walls and small features that other processes blur. The range of resins is wide: rigid, tough, "
+        "clear, flexible, heat-resistant and glass-filled grades all run on the same printer.</p>",
+
+        "<h2>How SLS works</h2>"
+        "<p>Selective laser sintering (SLS) fuses nylon powder with a laser. The Sinter X spreads a thin layer of powder "
+        "across the build chamber, the laser melts the cross-section of every part in that layer, and the process repeats. "
+        "The unfused powder around the parts holds them in place, so SLS needs no support structures at all.</p>"
+        "<p>That has two big effects. Parts can have internal channels, interlocking features and shapes that no support "
+        "could reach. And the whole chamber can be filled with parts stacked in three dimensions, which makes SLS well suited "
+        "to batches. After printing, the parts are removed from the powder and blasted clean. Most of the unused powder is "
+        "sieved and mixed with fresh powder for the next build.</p>",
+
+        "<h2>The differences that matter</h2>"
+        "<ul>"
+        "<li><strong>Surface finish.</strong> SLA parts come off the printer smooth and ready for paint or polishing. SLS parts "
+        "have a slightly grainy, matte surface that hides layer lines but feels textured.</li>"
+        "<li><strong>Detail.</strong> SLA holds sharper edges and finer features. SLS is accurate for functional parts, but "
+        "very small text or knife-edge details soften.</li>"
+        "<li><strong>Strength.</strong> SLS nylon is tough and slightly flexible in every direction, so it survives impact, "
+        "fatigue and snap fits. Most SLA resins are stiffer and more brittle, although tough and elastic resins close much of the gap.</li>"
+        "<li><strong>Materials.</strong> SLA offers more variety, including clear and heat-resistant resins. SLS offers fewer "
+        "materials, mainly PA12, PA11 Pro and TPU, but they are engineering thermoplastics.</li>"
+        "<li><strong>Throughput.</strong> An SLA build is limited to the platform area. An SLS build uses the full chamber volume, "
+        "so it can produce far more parts in one run.</li>"
+        "<li><strong>Workflow and space.</strong> A desktop SLA printer and a finishing station fit in an office. SLS needs room "
+        "for powder handling and a separate cleaning step, so it suits a workshop.</li>"
+        "<li><strong>Cost.</strong> The Voxel S1 starts at €2,950 and the Sinter X at €24,500. Per part, SLS often becomes the "
+        "cheaper option once the chamber is filled regularly.</li>"
+        "</ul>",
+
+        "<h2>Choose SLA when</h2>"
+        "<ul>"
+        "<li>The part has to look right: appearance models, presentation pieces and consumer product prototypes</li>"
+        "<li>You need fine detail, such as dental and medical models, jewellery patterns or small connectors</li>"
+        "<li>You need a special material, such as a clear housing, a soft gasket or a mold that sees high temperatures</li>"
+        "<li>You print one or a few parts at a time and want them the same day</li>"
+        "</ul>",
+
+        "<h2>Choose SLS when</h2>"
+        "<ul>"
+        "<li>The part has to work: brackets, clips, ducts, housings and other functional prototypes</li>"
+        "<li>The part will be used, not just tested, such as jigs, fixtures, spare parts and short production runs</li>"
+        "<li>The design has internal channels or moving parts printed in one piece</li>"
+        "<li>You want to fill a build with dozens of parts and run it overnight</li>"
+        "</ul>",
+
+        "<h2>Three examples</h2>"
+        "<p><strong>A handheld device housing.</strong> For the first appearance model, use SLA in a grey or clear resin so the "
+        "surface can be painted and shown to customers. When the design moves to drop tests and assembly trials, switch to SLS in "
+        "PA12 for parts that behave more like the final moulded housing.</p>"
+        "<p><strong>An assembly fixture.</strong> A fixture that locates parts on a production line takes knocks every day. SLS in "
+        "PA12 is the usual choice. If the fixture has to hold very tight tolerances on a small feature, a glass-filled SLA resin is stiffer.</p>"
+        "<p><strong>A batch of 200 clips.</strong> SLS in PA11 Pro, nested in a single build. The clips need to flex without cracking, "
+        "and printing them together keeps the cost per part low.</p>",
+
+        "<h2>Questions to ask about your part</h2>"
+        "<ol>"
+        "<li>Does it need to look finished or work under load?</li>"
+        "<li>What is the smallest feature it has?</li>"
+        "<li>Does it need a property only one material family offers, such as clarity or ductility?</li>"
+        "<li>How many do you need, and how often?</li>"
+        "<li>Where will the printer sit, and who will run it?</li>"
+        "</ol>"
+        "<p>If the answers point both ways, that is common. Many teams use both technologies, with SLA for detailed and visual parts "
+        "and SLS for functional parts and batches. VoxelPrep prepares jobs for both printers, so files and habits carry over.</p>"
+        "<p>Not sure which fits? Send us a part file and we will print a sample in both technologies so you can compare them side by side.</p>"
+        "<p>Voxelry and its products are fictional, and the figures in this guide are illustrative.</p>"
     ),
     ("support", "en"): lambda: {
         "Hero": [hero("How can we help?", "Setup guides, troubleshooting and service plans for your printers.", image=art("aids"), alt="Voxel model of an assembly jig")],
@@ -1025,6 +1160,25 @@ CONTENT = {
             card("Sales", "Discuss printers, pricing and a demonstration."),
             card("Sample parts", "See and test printed material samples."),
             card("Resellers", "Find or become a local partner."),
+        ))],
+    },
+    ("support", "de"): lambda: {
+        "Hero": [hero("Wie können wir helfen?", "Einrichtungsanleitungen, Fehlerbehebung und Servicepläne für Ihre Drucker.", image=art("aids"), alt="Voxel-Modell einer Montagevorrichtung")],
+        "Content": [section("Unterstützung", cards(
+            3,
+            card("Erste Schritte", "Auspacken, einrichten und den ersten Druck starten."),
+            card("Fehlerbehebung", "Druckprobleme Schritt für Schritt lösen."),
+            card("Servicepläne", "Bevorzugter Support und Ersatzgeräte."),
+        ))],
+        "Call to action": default_cta("de"),
+    },
+    ("contact", "de"): lambda: {
+        "Hero": [hero("Kontakt zu Voxelry", "Dies ist eine Übungswebsite, daher ist auch das Vertriebsteam fiktiv. Auf einer echten Website stünde hier das Kontaktformular.", image=art("office"), alt="Voxel-Modell der Budapester Skyline")],
+        "Content": [section("So erreichen Sie uns", cards(
+            3,
+            card("Vertrieb", "Sprechen Sie mit uns über Drucker, Preise und eine Vorführung."),
+            card("Musterteile", "Sehen und testen Sie gedruckte Materialmuster."),
+            card("Händler", "Finden Sie einen Partner in Ihrer Nähe oder werden Sie selbst einer."),
         ))],
     },
     ("about", "en"): lambda: {

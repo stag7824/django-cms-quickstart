@@ -90,8 +90,11 @@ and lets you compare or revert.
 4. Publish. Translations are versioned separately, so the German page can stay in draft
    while the English one is live.
 
-Untranslated pages appear in the German menu with their English titles and redirect to
-English, so nothing breaks while translations catch up. The starter site leaves the German
+The German menu lists only pages that have a published German version, so a German visitor
+is never sent to an English page from the navigation. A page joins the German menu as soon
+as its translation is published. Links inside content that point to an untranslated page
+still work and redirect to the English version, so label them, for example
+"Fallstudie lesen (Englisch)". The starter site leaves the German
 **Sinter X** page as a draft so you can practise reviewing and publishing it.
 
 Interface text such as filter labels and "Contact sales" lives in
@@ -125,6 +128,27 @@ The audit loads every published page in every language and reports:
 Add `--strict` to make it fail on errors, for example in CI before a deploy.
 
 The sitemap is served at `/sitemap.xml` and lists every published page in every language.
+`/robots.txt` points crawlers to it. Both use the domain in the `DOMAIN` environment
+variable, which every deploy copies into **Admin > Sites**.
+
+Never publish a test page on the live site. Use a draft and the preview instead: drafts are
+not in the menu or the sitemap.
+
+## Search and sharing metadata
+
+Every page gets Open Graph and Twitter tags with the brand name in the title. The sharing
+image is the article's listing image, otherwise the page's hero image, otherwise a default
+Voxelry image. Pages also carry structured data for search engines: Organization and
+WebSite on the home page, Product (with the starting price from the hero) on product pages,
+Article on articles, and a breadcrumb trail on every page below the home page.
+
+## Content updates on a live site
+
+`seed_voxelry` only builds a new site. When the starter content changes later, add a step
+to `UPDATES` in `backend/management/commands/update_voxelry.py`. Every deploy runs
+`update_voxelry`, which applies each new step once by publishing a new page version (the
+previous one stays in the page history). A step is skipped, and tried again on the next
+deploy, if the page it changes has an unpublished draft.
 
 ## Not included yet
 

@@ -209,7 +209,9 @@ LANGUAGES = [
 CMS_LANGUAGES = {
     SITE_ID: [
         {'code': 'en', 'name': 'English'},
-        {'code': 'de', 'name': 'Deutsch', 'fallbacks': ['en']},
+        # German menus list only pages that have a German version, so a German visitor
+        # is never sent to an English page from the navigation.
+        {'code': 'de', 'name': 'Deutsch', 'fallbacks': ['en'], 'hide_untranslated': True},
     ],
     'default': {
         'public': True,

@@ -284,3 +284,13 @@ class MaterialCatalogue(CMSPlugin):
 
     def __str__(self):
         return self.get_technology_display() or "All materials"
+
+
+class AppliedContentUpdate(models.Model):
+    """A one-off content change that `update_voxelry` has already made on this site."""
+
+    name = models.CharField(max_length=100, unique=True)
+    applied_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
