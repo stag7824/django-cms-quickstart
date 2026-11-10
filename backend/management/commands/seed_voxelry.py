@@ -94,6 +94,11 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        from backend.sunset import is_sunset
+
+        if is_sunset():
+            self.stdout.write("The test project has ended (SUNSET_AT), so the starter site is not created.")
+            return
         if Page.objects.filter(reverse_id="home").exists():
             message = "The Voxelry starter site already exists, so nothing was changed."
             if options["skip_existing"]:

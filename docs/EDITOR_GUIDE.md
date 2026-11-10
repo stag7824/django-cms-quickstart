@@ -156,8 +156,12 @@ deploy, if the page it changes has an unpublished draft.
 16 November 2026, 00:00 CET). Until then an orange bar at the top of every page says this is
 a test project and counts down to that moment. From then on every public address returns
 "410 Gone" with a page explaining it was a test project, and `robots.txt` asks search engines
-to drop the site. Pages, images and the database are not deleted, and the admin still
-works. To bring the site back, remove `SUNSET_AT` or move it later and redeploy.
+to drop the site.
+
+The first request after that moment **permanently deletes** every page and its version
+history, the footer, the materials, and every uploaded image and thumbnail. User accounts and
+the admin are kept. Later deploys do not rebuild the starter site. This cannot be undone:
+to keep the site, move or remove `SUNSET_AT` and redeploy **before** the deadline.
 
 ## Not included yet
 
