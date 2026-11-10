@@ -26,6 +26,34 @@
 {% block navbar %}
     {% page_url "home" as home_url %}{% page_url "contact" as contact_url %}{% page_alternates as alternates %}
     <a class="vx-skip" href="#main">{% trans "Skip to main content" %}</a>
+    {% if sunset_at %}
+        <div class="vx-sunset" role="note">
+            <div class="container-xl">
+                <strong>{% if LANGUAGE_CODE == "de" %}Testprojekt{% else %}Test project{% endif %}</strong>
+                {% if LANGUAGE_CODE == "de" %}
+                    Voxelry ist eine fiktive Übungswebsite. Alle Inhalte werden am <time datetime="{{ sunset_iso }}">{{ sunset_day|date:"j.n.Y" }}</time> entfernt.
+                {% else %}
+                    Voxelry is a fictional practice site. All content will be removed on <time datetime="{{ sunset_iso }}">{{ sunset_day|date:"j F Y" }}</time>.
+                {% endif %}
+                <span class="vx-sunset-countdown" data-sunset="{{ sunset_iso }}" data-lang="{{ LANGUAGE_CODE }}" aria-live="off"></span>
+            </div>
+        </div>
+        <script>
+            (function () {
+                var el = document.querySelector(".vx-sunset-countdown");
+                var end = new Date(el.dataset.sunset).getTime();
+                var de = el.dataset.lang === "de";
+                function tick() {
+                    var left = Math.max(0, end - Date.now());
+                    var d = Math.floor(left / 864e5), h = Math.floor(left / 36e5) % 24, m = Math.floor(left / 6e4) % 60, s = Math.floor(left / 1e3) % 60;
+                    var pad = function (n) { return n < 10 ? "0" + n : n; };
+                    el.textContent = (de ? "Noch " : "") + d + (de ? " T " : "d ") + pad(h) + ":" + pad(m) + ":" + pad(s) + (de ? "" : " left");
+                    if (left === 0) { location.reload(); } else { setTimeout(tick, 1000); }
+                }
+                tick();
+            })();
+        </script>
+    {% endif %}
     <nav class="navbar navbar-expand-lg vx-nav" aria-label="{% trans "Main" %}">
         <div class="container-xl">
             <a class="navbar-brand vx-brand" href="{{ home_url|default:"/" }}"><span class="vx-logo" aria-hidden="true"></span>Voxelry</a>

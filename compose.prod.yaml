@@ -11,6 +11,8 @@ services:
       SECRET_KEY: ${SERVICE_BASE64_64_DJANGO}
       DEBUG: "False"
       DOMAIN: voxelry.gardazi.com
+      # The test project goes offline at this moment; see backend/sunset.py
+      SUNSET_AT: "2026-11-16T00:00:00+01:00"
     volumes:
       - /home/ubuntu/config/formlabs-media:/data
     depends_on:

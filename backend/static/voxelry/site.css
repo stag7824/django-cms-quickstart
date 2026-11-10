@@ -19,6 +19,12 @@ img { max-width: 100%; height: auto; }
 .vx-skip { position: absolute; left: -999px; top: 0; z-index: 2000; padding: .5rem 1rem; background: #fff; }
 .vx-skip:focus { left: 0; }
 
+/* Test project notice */
+.vx-sunset { background: var(--vx-accent); color: #fff; font-size: .9rem; padding: .55rem 0; }
+.vx-sunset .container-xl { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .75rem; }
+.vx-sunset strong { background: #fff; color: var(--vx-accent-dark); border-radius: 3px; padding: .05rem .45rem; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; }
+.vx-sunset-countdown { margin-left: auto; font-weight: 700; font-variant-numeric: tabular-nums; }
+
 /* Navigation */
 .vx-nav { position: sticky; top: 0; z-index: 1020; background: #fff; border-bottom: 1px solid var(--vx-line); }
 .vx-brand { display: flex; align-items: center; gap: .55rem; font-weight: 700; letter-spacing: -0.02em; }

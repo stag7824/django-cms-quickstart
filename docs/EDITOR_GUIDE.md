@@ -150,6 +150,15 @@ to `UPDATES` in `backend/management/commands/update_voxelry.py`. Every deploy ru
 previous one stays in the page history). A step is skipped, and tried again on the next
 deploy, if the page it changes has an unpublished draft.
 
+## Taking the site offline
+
+`SUNSET_AT` in `compose.prod.yaml` sets when the practice site ends (currently
+16 November 2026, 00:00 CET). Until then an orange bar at the top of every page says this is
+a test project and counts down to that moment. From then on every public address returns
+"410 Gone" with a page explaining it was a test project, and `robots.txt` asks search engines
+to drop the site. Pages, images and the database are not deleted, and the admin still
+works. To bring the site back, remove `SUNSET_AT` or move it later and redeploy.
+
 ## Not included yet
 
 These parts of a real site would come next: a store and checkout, site search, lead forms

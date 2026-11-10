@@ -1,4 +1,7 @@
+from datetime import datetime
 from pathlib import Path
+
+from django.core.exceptions import ImproperlyConfigured
 import os
 import dj_database_url
 from django_storage_url import dsn_configured_storage_class
@@ -96,6 +99,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'backend.sunset.SunsetMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -130,6 +134,7 @@ TEMPLATES = [
 
                 'cms.context_processors.cms_settings',
                 'sekizai.context_processors.sekizai',
+                'backend.sunset.sunset',
 
             ],
         },
@@ -195,6 +200,11 @@ if not DEBUG:
 
 
 SITE_ID = 1
+
+# When the public site goes offline (see backend/sunset.py). Leave SUNSET_AT unset to keep it up.
+SUNSET_AT = datetime.fromisoformat(os.environ['SUNSET_AT']) if os.environ.get('SUNSET_AT') else None
+if SUNSET_AT is not None and SUNSET_AT.tzinfo is None:
+    raise ImproperlyConfigured('SUNSET_AT needs a UTC offset, for example 2026-11-16T00:00:00+01:00')
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
